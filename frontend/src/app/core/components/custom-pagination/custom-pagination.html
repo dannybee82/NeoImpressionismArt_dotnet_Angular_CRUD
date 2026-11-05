@@ -1,0 +1,39 @@
+<div class="custom-paginator">
+    <div>
+      <mat-paginator [length]="pagination().totalCount" 
+          [pageSizeOptions]="[4, 8, 16, 32, 64, 128]"
+          [pageSize]="pageSize()"
+          aria-label="Select page of Paintings"   
+                        (page)="updatePagination($event)"                      
+                        [showFirstLastButtons]="false"
+                        [class]="'hide-nav-buttons'">          
+      </mat-paginator>      
+    </div>
+    <div class="responsive-small-screens-hide row g-1 w-f-80px">
+      <div class="col">
+        {{ pagination().from }}
+      </div>
+      <div class="col">-</div>
+      <div class="col">
+        {{ pagination().to }}
+      </div>
+      <div class="col">of</div>
+      <div class="col">
+        {{ pagination().totalCount }}
+      </div>
+    </div>
+    <div class="button-container">
+      <button mat-icon-button (click)="firstPage()" [disabled]="disableFirstButton()">
+        <mat-icon>first_page</mat-icon>
+      </button>
+      <button mat-icon-button (click)="previousPage()" [disabled]="disablePreviousButton()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-icon-button (click)="nextPage()" [disabled]="disableNextButton()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+      <button mat-icon-button (click)="lastPage()" [disabled]="disableLastButton()">
+        <mat-icon>last_page</mat-icon>
+      </button>
+    </div>
+</div>

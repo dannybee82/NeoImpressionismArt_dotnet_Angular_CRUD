@@ -1,0 +1,26 @@
+# backend/Dockerfile.migrations
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /src
+
+# Install dotnet-ef at BUILD TIME — PATH is guaranteed to be set
+RUN dotnet tool install --global dotnet-ef --version 10.0.10
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+# Copy project files first for better layer caching
+COPY ["NeoImpressionismArtWebApi/NeoImpressionismArtWebApi.csproj", "NeoImpressionismArtWebApi/"]
+COPY ["Application/Application.csproj",       "Application/"]
+COPY ["Domain/Domain.csproj",                 "Domain/"]
+COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+
+# Restore NuGet packages
+RUN dotnet restore ./NeoImpressionismArtWebApi/NeoImpressionismArtWebApi.csproj
+
+# Copy the rest of the source code
+COPY . .
+
+# At container startup: just run the migration
+CMD ["dotnet", "ef", "database", "update", \
+     "--project",         "./Infrastructure/Infrastructure.csproj", \
+     "--startup-project", "./NeoImpressionismArtWebApi/NeoImpressionismArtWebApi.csproj", \
+     "--verbose"]

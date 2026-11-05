@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  postgresql_db_neo_impressionism_art:
+    image: postgres:16.4
+    container_name: postgresql_db_neo_impressionism_art
+    restart: unless-stopped
+    environment:      
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Test2026!
+      - POSTGRES_DB=NeoImpressionismArt
+    ports: 
+      - "5432:5432"

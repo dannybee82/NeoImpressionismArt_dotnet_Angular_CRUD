@@ -1,0 +1,54 @@
+<div class="row responsive-row fx-space-between mb-1">
+    <div class="col ps-1 w-30 responsive-resize">
+        <div class="row container-banner-and-menu">
+            <img src="../images/neo-impressionism-art-h150.PNG" alt="Neo Impressionism Art" matTooltip="Neo Impressionism Art" class="art-banner">
+            <div class="column ps-1 g-1 menu-container">
+                <button mat-stroked-button color="primary"  [routerLink]="['/']" matTooltip="Home">
+                    <mat-icon>home</mat-icon>
+                    Home
+                </button>
+                <button mat-stroked-button color="primary" [routerLink]="['/create-or-update-artwork', undefined]" matTooltip="Create Artwork"> 
+                    <mat-icon>add</mat-icon>
+                    Create Artwork
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="column w-70 container-pagination">
+        <app-custom-pagination
+            [data]="paginationData"
+            (emitUpdatePagination)="updatePagination($event)">
+        </app-custom-pagination>
+    </div>
+</div>
+<div class="card-grid">
+    @if(artWorks$ | async; as artworks) {        
+        @for(artwork of artworks.items; track $index) {
+            <mat-card appearance="outlined">
+                <div class="thumbnail-container">
+                    <img
+                        mat-card-image
+                        [src]="getImageUrl(artwork.imageId)"
+                        alt="Artwork Image"  
+                        class="image-thumbnail"  
+                        [matTooltip]="artwork.name"
+                        [routerLink]="['/artwork', artwork.id ?? 0]"
+                    />                    
+                </div>                
+                <mat-card-header class="custom-padding-top">
+                    <mat-card-title [class]="'card-title-max-height'">{{ artwork.name }}</mat-card-title>                 
+                </mat-card-header>
+                <mat-card-content class="custom-padding-bottom">                    
+                    <div class="row fx-space-between">    
+                         <button type="button" mat-icon-button color="accent" matTooltip="Show details" [routerLink]="['/artwork', artwork.id ?? 0]">
+                            <mat-icon>visibility</mat-icon>                        
+                        </button>
+                        <button type="button" mat-icon-button color="accent" matTooltip="Edit Artwork" [routerLink]="['/create-or-update-artwork', artwork.id ?? 0]">
+                            <mat-icon>edit</mat-icon>                        
+                        </button>      
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        }
+    }
+</div>

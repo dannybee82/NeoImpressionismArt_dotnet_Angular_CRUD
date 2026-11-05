@@ -1,0 +1,81 @@
+@if(artwork$ | async; as artwork) {
+    <div class="row responsive-row">        
+        <div class="column w-10 ps-1 pt-1 back-to-main-container">
+            <app-back-to-main />
+        </div>
+        @if(artwork.imageId) {
+            <div class="column w-70 pt-1 fx-center fx-align-center h-100vh responsive-image-container">
+                <img [src]="this.getImageUrl(artwork.imageId)" [alt]="artwork.name" [matTooltip]="artwork.name" />
+            </div>
+        }       
+        <div class="details-container">
+            <!-- Collapsible expansion panel container (right side) -->
+            <div class="panel-container" [class.collapsed]="isPanelCollapsed()">
+                <!-- Toggle button -->
+                <button 
+                    mat-icon-button 
+                    class="collapse-toggle"
+                    (click)="togglePanel()"
+                    [attr.aria-label]="isPanelCollapsed() ? 'Expand panel' : 'Collapse panel'">
+                        <mat-icon>{{ isPanelCollapsed() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+                </button>
+
+                <!-- Expansion panels -->
+                 @if(!isPanelCollapsed()) {
+                    <div class="panels-content">
+                        <mat-accordion [multi]="true" #accordion>
+                            
+                            <!-- Artwork Title - Always visible header -->
+                            <div class="panel-header">
+                            <h3 class="artwork-title">{{ artwork.name }}</h3>
+                            </div>
+
+                            <!-- Artwork Description -->
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                    Artwork Description
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div [innerHTML]="artwork.description" class="text-justify"></div>
+                            </mat-expansion-panel>
+
+                            <!-- Other Artwork Information -->
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                    Artwork Information
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <strong>Artist</strong>
+                                        <p>{{ artwork.artist ? artwork.artist.name : 'Unknown' }}</p>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                            <!-- Information About the Artist -->
+                            @if(artwork.artist) {
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                        About {{ artwork.artist.name }}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div>
+                                        <p class="artist-years">
+                                        <strong>
+                                            {{ artwork.artist | yearsOfLife }}
+                                        </strong>
+                                        </p>
+                                        <p class="text-justify">{{ artwork.artist.description }}</p>
+                                    </div>
+                                </mat-expansion-panel>
+                            }
+                        </mat-accordion>
+                    </div>
+                 }                
+            </div>
+        </div>     
+    </div>
+}

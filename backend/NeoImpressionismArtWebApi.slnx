@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Application/Application.csproj" Id="100db03d-8b2e-4aa4-80f9-7efe34686db9" />
+  <Project Path="Domain/Domain.csproj" Id="a4445bf7-f286-4e3d-928e-3fa227fc9429" />
+  <Project Path="Infrastructure/Infrastructure.csproj" Id="febafecb-cf4a-407c-8981-89f8c9171117" />
+  <Project Path="NeoImpressionismArtWebApi/NeoImpressionismArtWebApi.csproj" />
+</Solution>

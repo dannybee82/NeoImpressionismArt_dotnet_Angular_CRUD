@@ -1,0 +1,95 @@
+<div class="column w-100 responsive-container">
+    <div class="row ps-1 pt-1">
+        <app-back-to-main />
+    </div>
+    <div class="row w-70 responsive-row">
+        <form (submit)="submit($event)" class="form-width">
+            <div class="column me-1 w-100 responsive-column p-1">
+                <h3>{{ isUpdateMode() ? 'Update Artwork' : 'Create Artwork' }}</h3>
+                <div class="row">
+                    <mat-form-field class="w-100 form-field-responsive">
+                        <mat-label>Artwork Name</mat-label>
+                        <input
+                            type="text"
+                            matInput
+                            [formField]="form.name"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="w-100 form-field-responsive">
+                        <mat-label>Artwork Description</mat-label>
+                        <textarea
+                            type="text"
+                            matInput
+                            [rows]="5"
+                            [cols]="30"
+                            [formField]="form.description"
+                        ></textarea>
+                        </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="w-100 form-field-responsive">
+                        <mat-label>Artist</mat-label>
+                        <mat-select [formField]="form.artistId">
+                            @if(artists$ | async; as artists) {
+                                @if(artists.length === 0) {
+                                    <mat-option disabled>No artists available</mat-option>
+                                } @else {
+                                    @for(artist of artists; track $index) {
+                                        <mat-option [value]="artist.id">
+                                            {{ artist.name }}
+                                        </mat-option>
+                                    }
+                                }
+                            } @else {
+                                <mat-option disabled>Loading artists...</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row w-100 mt-1 container-image-button-and-preview">
+                        <app-open-file
+                            [buttonText]="'Open image file'"
+                            [fileExtensions]="'.jpg,.png,.jpeg,.gif'"
+                            [matIcon]="'image'"
+                            [allowMultipleSelection]="false"
+                            (selectedFile)="loadFile($event)"
+                            class="pe-1 w-50"
+                        />
+                        @let image = getImageSource();
+                        @if(image !== '') {
+                            <img class="preview-image me-1 ms-1" [src]="image" alt="Preview" title="Preview" />
+                            <div class="col w-45">
+                                <div class="column ps-1 container-remove-button">
+                                    <button
+                                        type="button"
+                                        mat-stroked-button
+                                        color="warn"
+                                        matTooltip="Remove image"
+                                        (click)="removeFile()">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>Remove Image</span>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                </div>
+                <div class="row pt-1">
+                    <button type="submit" mat-raised-button color="primary">
+                        <mat-icon>save</mat-icon>
+                        {{ isUpdateMode() ? 'Update' : 'Create' }}
+                    </button>
+                </div>
+                @if(isUpdateMode()) {
+                    <div class="row pt-1">
+                        <button type="button" mat-raised-button color="warn" (click)="delete()">
+                            <mat-icon>delete</mat-icon>
+                            Delete
+                        </button>
+                    </div>
+                }
+            </div>
+        </form>        
+    </div>
+</div>

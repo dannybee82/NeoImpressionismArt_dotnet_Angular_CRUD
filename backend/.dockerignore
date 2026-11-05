@@ -1,0 +1,4 @@
+# .dockerignore  (place next to docker-compose.yml or in /backend)  
+**/obj/  
+**/bin/  
+**/.vs/

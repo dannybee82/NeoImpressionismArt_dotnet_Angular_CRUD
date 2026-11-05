@@ -1,0 +1,189 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+/* You can add global styles to this file, and also import other style files */
+.mat-mdc-card-header-text {
+    width: 100%!important;
+}
+
+.mdc-icon-button.mat-mdc-icon-button.mat-mdc-button-base.mat-mdc-tooltip-trigger.mat-mdc-paginator-navigation-previous.mat-mdc-button-disabled.mat-mdc-button-disabled-interactive.mat-unthemed.mat-mdc-tooltip-disabled {
+  display: none;
+}
+.mdc-icon-button.mat-mdc-icon-button.mat-mdc-button-base.mat-mdc-tooltip-trigger.mat-mdc-paginator-navigation-next.mat-mdc-button-disabled-interactive.mat-unthemed {
+  display: none;
+}
+.mat-mdc-paginator-range-label {
+  display: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.fx-content-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.fx-center {
+  justify-content: center;
+}
+
+.fx-align-center {
+  align-items: center;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.fx-space-between {
+  justify-content: space-between;
+}
+
+.g-1 {
+  gap: 4px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-45 {
+  width: 45%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.p-1 {
+    padding: 16px;
+}
+
+.ps-1 {
+    padding-left: 16px;
+}
+
+.pt-1 {
+    padding-top: 16px;
+}
+
+.pe-1 {
+  padding-right: 16px;
+}
+
+.mt-1 {
+  margin-top: 16px;
+}
+
+.ms-1 {
+  margin-left: 16px;
+}
+
+.mb-1 {
+  margin-bottom: 16px;
+}
+
+// Custom toastr using Angular Material Snackbar
+.snackbar-info,  
+.snackbar-success,  
+.snackbar-error {  
+  /* text is always white for contrast */  
+  .mdc-snackbar__surface {  
+    color: #ffffff !important;  
+  }  
+  
+  .mdc-snackbar__label {  
+    color: #ffffff !important;  
+  }  
+}  
+  
+.snackbar-info .mdc-snackbar__surface {  
+  background-color: darkblue !important;   /* #00008b */  
+}  
+  
+.snackbar-success .mdc-snackbar__surface {  
+  background-color: darkgreen !important;  /* #006400 */  
+}  
+  
+.snackbar-error .mdc-snackbar__surface {  
+  background-color: darkred !important;    /* #8b0000 */  
+}
