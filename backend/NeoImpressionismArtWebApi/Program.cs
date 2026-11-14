@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using FileSignatures;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
+using Infrastructure.SeedData;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -82,6 +83,14 @@ builder.Services.AddSingleton<IAllowedFileFormatList, AllowedFileFormatList>((IS
 builder.Services.AddSingleton<IFileFormatInspector>(new FileFormatInspector());
 
 var app = builder.Build();
+
+// Add images to Database, when not already added yet.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+    await SeedImages.SeedAsync(db);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

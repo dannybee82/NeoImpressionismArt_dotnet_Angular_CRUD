@@ -20,6 +20,12 @@ To see the application in action within a _Docker Container_, use the command fr
 
 **docker compose up --build -d**
 
+And to remove the _Docker Container_ use the command command from the root of this project:
+
+**docker compose down -v**
+
+Note: _\-v_ also deletes all data in the Docker database.
+
 ### _2\. Local installation_
 
 A) PostgreSQL database  
@@ -69,6 +75,23 @@ or shorter:
 _ng s --o_
 
 ### **Changelog:**
+
+_November 2026_
+
+**Backend:**
+
+\- Solved a major issue with the consumption of a lot of memory/RAM by the process 'VBCSCompiler' during a build or  
+rebuild of the WebApi.  
+Cause: the images were included in the _Database Migrations_ and this data was written into the C# source code.  
+And also _builder.HasData()_ is not meant for large byte arrays (for files/images).  
+Solution: creation of new _Database Migrations_ without the images as byte array.  
+At startup of the WebApi, the images are added to the database once.
+
+\- Change to _Dockerfile_ - using a _dotnet-ef_ version that matches the .NET version (.NET8).
+
+**Frontend:**
+
+\- Added scroll to top.
 
 _November 2026_
 
