@@ -15,5 +15,7 @@ namespace Domain.Interfaces
         Task Update(ArtImage entity);
 
         Task Delete(int id);
+
+        Task<int> CreateAndReturnId(ArtImage entity);
     }
 }

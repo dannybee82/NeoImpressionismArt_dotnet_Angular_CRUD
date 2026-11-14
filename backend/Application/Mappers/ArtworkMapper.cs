@@ -48,7 +48,7 @@ namespace Application.Mappers
             };
         }
 
-        public static Artwork ToEntity(CreateOrUpdateArtworkDto dto, byte[] image, string fileFormat)
+        public static Artwork ToEntity(CreateOrUpdateArtworkDto dto)
         {
             Artwork entity = new();
 
@@ -59,12 +59,7 @@ namespace Application.Mappers
             entity.Name = dto.Name;
             entity.Description = dto.Description;
             entity.ArtistId = dto.ArtistId;
-
-            entity.ArtImage = new ArtImage()
-            {
-                ContentType = $"image/{fileFormat}",
-                Image = image
-            };
+            entity.ArtImageId = null;
 
             return entity;
         }

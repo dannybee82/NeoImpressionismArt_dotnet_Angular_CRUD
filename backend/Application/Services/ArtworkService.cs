@@ -61,7 +61,12 @@ namespace Application.Services
                 throw new Exception("Not allowed file format.");
             }
 
-            var entity = ArtworkMapper.ToEntity(dto, ms.ToArray(), record.Extension);
+            // Add image first.
+            var image = ArtImageMapper.ToEntity(ms.ToArray(), record.Extension);
+            int imageId = await _artImageRepository.CreateAndReturnId(image);
+
+            var entity = ArtworkMapper.ToEntity(dto);
+            entity.ArtImageId = imageId;
             await _artworkRepository.Create(entity);
         }
 
@@ -116,7 +121,7 @@ namespace Application.Services
             }
 
             // Update image when there is one.
-            if(file != null)
+            if (file != null)
             {
                 using var ms = new MemoryStream();
                 await file.CopyToAsync(ms);
@@ -151,11 +156,10 @@ namespace Application.Services
                 else
                 {
                     // Add new image.
-                    itemToUpdate.ArtImage = new ArtImage()
-                    {
-                        ContentType = $"image/{extension}",
-                        Image = ms.ToArray()
-                    };
+                    var imageEntity = ArtImageMapper.ToEntity(ms.ToArray(), $"image/{extension}");
+                    int imageId = await _artImageRepository.CreateAndReturnId(imageEntity);
+
+                    itemToUpdate.ArtImageId = imageId;
                 }
             }
 
