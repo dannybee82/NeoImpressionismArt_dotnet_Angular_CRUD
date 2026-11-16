@@ -89,7 +89,7 @@ At startup of the WebApi, the images are added to the database once.
 
 \- Change to _Dockerfile_ - using a _dotnet-ef_ version that matches the .NET version (.NET8).
 
-\- When fixing above, introduced another bug and fixes this.
+\- When fixing above, introduced another bug and fixed this.
 
 **Frontend:**
 

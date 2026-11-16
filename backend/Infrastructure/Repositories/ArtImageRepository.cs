@@ -21,10 +21,6 @@ namespace Infrastructure.Repositories
 
         public async Task<int> CreateAndReturnId(ArtImage entity)
         {
-            // Somehow a new issue at this point.
-            int nextId = await _dbContext.ArtImages.MaxAsync(x => x.Id);
-            entity.Id = nextId + 1;
-
             await _dbContext.ArtImages.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity.Id;
